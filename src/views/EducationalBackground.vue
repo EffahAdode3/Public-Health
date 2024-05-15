@@ -1,7 +1,7 @@
 <template>
      <body>
       <form>
-        <h2>Form Validation</h2>
+        <h2>Educational Background</h2>
         <div v-for="(entry, index) in educationalHistory" :key="index">
        <h3>Educational Background</h3>
           <div class="form-group date">
