@@ -154,7 +154,7 @@ export default {
         console.log('Response:', response);
       if(response.data.status === 'success'){
         localStorage.setItem('apikey', response.data.apikey);
-        swal('Biodata Saved Successfully')
+        // swal('Biodata Saved Successfully')
         console.log("Succefully");
         this.$router.push('/edu');
       }
