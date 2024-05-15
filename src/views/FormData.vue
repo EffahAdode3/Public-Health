@@ -88,7 +88,7 @@
     </div>
   </div>
       <div class="form-group submit-btn">
-        <input type="submit" value="Submit">
+        <input type="submit" value="Next">
       </div>
     </form>
   </body> 
@@ -156,6 +156,7 @@ export default {
         localStorage.setItem('apikey', response.data.apikey);
         swal('Biodata Saved Successfully')
         console.log("Succefully");
+        this.$router.push('/edu');
       }
         }).catch((err)=>{
             swal('Oops','No Internet Connection detected','error');
