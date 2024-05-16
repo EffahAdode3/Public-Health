@@ -24,6 +24,10 @@
     
     
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div>
         <button class="formbold-btn w-full" @click="uploadFile">Submit</button>
       </div>
@@ -172,11 +176,11 @@ export default{
   }
 
   .formbold-file-input input {
-    opacity: 0; 
+    opacity: 1; 
      position: absolute;
-   width: 82%;
-    height: 80%; 
-    background-color: black;
+   width: 53%;
+    height: 15%; 
+    /* background-color: black; */
     z-index:1;
   }
 
@@ -260,10 +264,19 @@ export default{
     border-radius: 8px;
   }
 
-  @media (min-width: 540px) {
+  @media (max-width: 540px) {
     .sm\:w-half {
       width: 50%;
     }
+
+    .formbold-file-input input {
+
+   width: 73%;
+    height: 23%; 
+    /* background-color: blue; */
+
+  }
+
   }
 
 </style>
