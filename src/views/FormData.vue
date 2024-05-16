@@ -165,6 +165,8 @@ export default {
         this.$router.push('/edu');
         localStorage.setItem('apikey', response.data.apikey);
         
+      }else{
+        swal('Invalid input')
       }
         }).catch((err)=>{
             swal('Oops','No Internet Connection detected','error');
