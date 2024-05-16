@@ -24,7 +24,9 @@
             <label>Degree completed</label>
             <input type="text" v-model="entry.degree">
           </div>
+          <button class="btn btn-danger" @click.prevent="deleteHistory(index)">Delete</button>
         </div>
+        <br>
         <button class="btn btn-primary" @click.prevent="addHistory">Add</button>
         <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next Page</button>
       </form>
@@ -39,13 +41,14 @@
       return {    
         user_id:'',
         user:[],
-        edubackground: [{
+        edubackground: JSON.parse(localStorage.getItem('edubackground')) || [{
           start_date: '',
           end_date: '',
           institution: '',
           subjects: '',
           degree: '',     
         }]
+        
       };
     },
     mounted() {
@@ -65,7 +68,18 @@
           degree: '',
       
         });
+        this.saveToLocalStorage();
       },
+      
+      deleteHistory(index) {
+  this.edubackground.splice(index, 1);
+  // this.saveToLocalStorage();
+},
+
+saveToLocalStorage() {
+      localStorage.setItem('edubackground', JSON.stringify(this.edubackground));
+    },
+
       submit() {
         axios.post(`${base_url}/save-edubackground`, {edubackground:this.edubackground, user_id:this.user_id }).then((response)=>{
                         console.log(response);               

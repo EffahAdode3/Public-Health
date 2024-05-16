@@ -29,7 +29,9 @@
            <label>Country</label>
            <input type="text" v-model="entry.country">
          </div>
+         <button class="btn btn-danger" @click.prevent="deleteHistory(index)">Delete</button>
        </div>
+       <br>
        <button class="btn btn-primary" @click.prevent="addEmployement">Add</button>
        <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next Page</button>
      </form>
@@ -44,7 +46,7 @@
      return {    
         user_id:'',  
        user:[],
-       emphistory: [{
+       emphistory: JSON.parse(localStorage.getItem('emphistory')) || [{
         start_date: '',
         end_date: '',
         position: '',
@@ -71,10 +73,19 @@
          employer: '',
          city: '',   
          country:'',
-    
-
        });
+          this.saveToLocalStorage();
      },
+
+     deleteHistory(index) {
+  this.emphistory.splice(index, 1);
+  // this.saveToLocalStorage();
+},
+
+saveToLocalStorage() {
+      localStorage.setItem('emphistory', JSON.stringify(this.emphistory));
+    },
+
      submit() {
        axios.post(`${base_url}/save-emphistory`,{emphistory: this.emphistory, user_id:this.user_id} ).then((response)=>{
                        console.log(response);               
