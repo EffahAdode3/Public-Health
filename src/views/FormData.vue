@@ -12,7 +12,7 @@
       </div>
       <div class="form-group fullname">
       <label for="title">Title</label>
-      <select id="title" v-model="title">
+      <select id="title" v-model="formData.title">
         <option value="" selected disabled>Select a Title</option>
         <option v-for="titlename in titles" :key="titlename.id" :value="titlename.id">{{ titlename.title }}</option>
       </select>
@@ -49,7 +49,7 @@
       </div>
       <div class="form-group fullname">
         <label for="telephonenNumber">Telephone Number</label>
-        <input type="number" id="telephonenNumber" placeholder="Enter Telephone Number" v-model="formData.phone">
+        <input type="text" id="telephonenNumber" placeholder="Enter Telephone Number" v-model="formData.phone">
       </div>
       <div class="form-group email">
         <label for="email">Personal Email</label>
@@ -90,6 +90,7 @@
       <div class="form-group submit-btn">
         <input type="submit" value="Next">
       </div>
+      <button type="button" class="btn btn-danger" @click.prevent="logout">Logout</button>
     </form>
   </body> 
 </template>
@@ -101,6 +102,8 @@ import swal from 'sweetalert';
 export default {
   data() {
     return {
+
+      // getDataForm:[],
         user_id:'',
         user:[],
         titles: [],
@@ -113,8 +116,9 @@ export default {
             dob:'',
             placeofbirth:'',
             address:'',
-            phone:'',
-            email:'',   
+            phone:[],
+            email:'',  
+            prevacademic:'' ,
             isemployed:'',
             position:'',
             employername:'',
@@ -129,27 +133,32 @@ export default {
     console.log(this.user);
     console.log(this.user_id);
     this.fetchTitles();
+    this.getFormData() 
   },
+ 
+
 
   methods:{
     submit(){
+     console.log(this.formData);     
      axios.post(`${base_url}/save-biodata`, {
         user_id:this.user_id,
-        prog_applied:this.prog_applied, 
-        title:this.title,
-        surname:this.surname,
-        othernames:this.othernames,
-        gender:this.gender,
-        dob:this.dob,
-        placeofbirth:this.placeofbirth,
-        address:this.address,
-        phone:this.phone,
-        email:this.email,
-        isemployed:this.isemployed,
-        position:this.position,
-        employername:this.employername,
-        employeraddress:this.employeraddress,
-        employeremail:this.employeremail     
+        prog_applied:this.formData.prog_applied, 
+        title:this.formData.title,
+        surname:this.formData.surname,
+        othernames:this.formData.othernames,
+        gender:this.formData.gender,
+        dob:this.formData.dob,
+        placeofbirth:this.formData.placeofbirth,
+        address:this.formData.address,
+        // phone:this.formData.phone,
+        email:this.formData.email,
+        prevacademic:this.formData.prevacademic,
+        isemployed:this.formData.isemployed,
+        position:this.formData.position,
+        employername:this.formData.employername,
+        employeraddress:this.formData.employeraddress,
+        employeremail:this.formData.employeremail     
       }).then((response)=>{
         console.log('Response:', response);
       if(response.data.status === 'success'){
@@ -171,6 +180,32 @@ export default {
         .catch(error => {
           console.error('Error fetching titles:', error);
         });
+    },
+
+    // store date
+    getFormData() {
+      // var user_id=12;
+axios.post(`${base_url}/get-biodata`, {user_id: this.user_id}).then((response) => {
+          // if(response.data.status === 'success'){
+              //  this.formData.surname = response.data.biodata.surname
+              //  this.formData.othernames = response.data.biodata.othernames
+              //  this.formData.title = response.data.biodata.title
+              //  this.formData.gender = response.data.biodata.gender
+           let biodataForm = response.data.biodata;
+           for( const property in biodataForm){
+            this.formData[property] = biodataForm[property];
+           }
+           console.log(biodataForm);
+          console.log(response.data);       
+        })  .catch(error => {
+          console.error('Error fetching titles:', error);
+        });
+    },
+
+    logout(){
+      alert("Are you sure to Logout");
+      localStorage.clear();
+      this.$router.push('/');
     }
   }
 };

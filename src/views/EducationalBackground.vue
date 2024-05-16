@@ -24,11 +24,13 @@
             <label>Degree completed</label>
             <input type="text" v-model="entry.degree">
           </div>
+          <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="GoBack">Go Back</button>
           <button class="btn btn-danger" @click.prevent="deleteHistory(index)">Delete</button>
         </div>
         <br>
+        <button type="button" class="btn btn-danger" style="position: absolute;left: 40%;"  @click.prevent="logout">Logout</button>
         <button class="btn btn-primary" @click.prevent="addHistory">Add</button>
-        <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next Page</button>
+        <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next</button>
       </form>
     </body>
 </template>
@@ -56,6 +58,7 @@
     this.user_id = this.user.id
     console.log(this.user);
     console.log(this.user_id);
+    this. getFormData()
     
   },
     methods: {
@@ -92,6 +95,30 @@ saveToLocalStorage() {
             swal('Sorry,You can not register');
           });
         },
+
+        getFormData() {
+
+axios.post(`${base_url}/get-edubackground`, {user_id: this.user_id}).then((response) => {
+
+           let edudataForm = response.data.eduhistory;
+           for( const property in edudataForm){
+            this.edubackground[property] = edudataForm[property];
+           }
+           console.log(edudataForm);
+          console.log(response.data);       
+        })  .catch(error => {
+          console.error('Error fetching titles:', error);
+        });
+    },
+    GoBack(){
+      this.$router.push('/formData');
+    },
+    logout(){
+      alert("Are you sure to Logout");
+      localStorage.clear();
+      // window.location.href="/";
+      this.$router.push('/');
+    }
       }
     }
   

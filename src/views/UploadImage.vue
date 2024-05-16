@@ -36,9 +36,10 @@
                 <div v-for="(preview, index) in imagePreviews" :key="index">
                   <iframe :src="preview" class="w-full" style="height: 500px;"></iframe>
                 </div>
-              </div>
-  
+              </div>           
 </div>
+<button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="GoBack">Go Back</button>
+
 
 </template>
 
@@ -80,7 +81,11 @@ export default{
       
         })
       },
+
+      GoBack(){
+        this.$router.push('/employhis')
     }
+  }
 }
 </script>
 

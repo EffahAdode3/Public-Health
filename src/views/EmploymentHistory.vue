@@ -29,12 +29,15 @@
            <label>Country</label>
            <input type="text" v-model="entry.country">
          </div>
+         <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="GoBack">Go Back</button>
          <button class="btn btn-danger" @click.prevent="deleteHistory(index)">Delete</button>
        </div>
        <br>
-       <button class="btn btn-primary" @click.prevent="addEmployement">Add</button>
-       <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next Page</button>
+       <button type="button" class="btn btn-danger" style="position: absolute;left: 40%;"  @click.prevent="logout">Logout</button>
+       <button class="btn btn-primary"   @click.prevent="addEmployement">Add</button>
+       <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next</button>
      </form>
+    
    </body>
 </template>
  <script>
@@ -52,8 +55,7 @@
         position: '',
         employer: '',
         city: '',  
-        country:'',
-         
+        country:'',     
        }]
      };
    },
@@ -62,11 +64,12 @@
    this.user_id = this.user.id
    console.log(this.user);
    console.log(this.user_id);
+   this.getFormData()
    
  },
    methods: {
     addEmployement() {
-       this.emphistory.push({
+       this. emphistory.push({
          start_date: '',
          end_date: '',
          position: '',
@@ -79,7 +82,7 @@
 
      deleteHistory(index) {
   this.emphistory.splice(index, 1);
-  // this.saveToLocalStorage();
+  this.saveToLocalStorage();
 },
 
 saveToLocalStorage() {
@@ -98,7 +101,31 @@ saveToLocalStorage() {
            swal('Sorry,You can not register');
          });
        },
+
+       getFormData() {
+
+axios.post(`${base_url}/get-emphistory`, {user_id: this.user_id}).then((response) => {
+
+           let employdataForm = response.data.emphistory;
+           for( const property in employdataForm){
+            this.emphistory[property] = employdataForm[property];
+           }
+           console.log(employdataForm);
+          console.log(response.data);       
+        })  .catch(error => {
+          console.error('Error fetching titles:', error);
+        });
+    },
+    GoBack(){
+      this.$router.push('/edu');
+    },
+    logout(){
+      alert("Are you sure to Logout");
+      localStorage.clear();
+      this.$router.push('/');
      }
+     },
+    
    }
  
  </script>
