@@ -3,6 +3,8 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import formData from '../views/FormData.vue'
 import edu from '../views/EducationalBackground.vue'
+import employhis from '../views/EmploymentHistory.vue'
+import upload from '../views/UploadImage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +29,16 @@ const router = createRouter({
       path: '/edu',
       name: 'edu',
       component: edu
+    },
+    {
+      path: '/employhis',
+      name: 'employhis',
+      component: employhis
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: upload
     },
   ]
 })

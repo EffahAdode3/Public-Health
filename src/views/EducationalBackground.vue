@@ -2,7 +2,7 @@
      <body>
       <form>
         <h2>Educational Background</h2>
-        <div v-for="(entry, index) in educationalHistory" :key="index">
+        <div v-for="(entry, index) in edubackground" :key="index">
        <h3>Educational Background</h3>
           <div class="form-group date">
             <label>Date start</label>
@@ -25,8 +25,7 @@
             <input type="text" v-model="entry.degree">
           </div>
         </div>
-        <button class="btn btn-primary" @click.prevent="addHistory">Add History</button>
-        <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 45%;"  @click.prevent="GoBack">Go Back</button>
+        <button class="btn btn-primary" @click.prevent="addHistory">Add</button>
         <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next Page</button>
       </form>
     </body>
@@ -38,53 +37,47 @@
   export default {
     data() {
       return {    
+        user_id:'',
         user:[],
-        educationalHistory: [{
+        edubackground: [{
+          start_date: '',
+          end_date: '',
+          institution: '',
+          subjects: '',
+          degree: '',     
+        }]
+      };
+    },
+    mounted() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.user_id = this.user.id
+    console.log(this.user);
+    console.log(this.user_id);
+    
+  },
+    methods: {
+      addHistory() {
+        this.edubackground.push({
           start_date: '',
           end_date: '',
           institution: '',
           subjects: '',
           degree: '',
-          user_id:'',
-          
-        }]
-      };
-    },
-
-    mounted() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.educationalHistory.user_id = this.user.id
-    console.log(this.user);
-    console.log(this.educationalHistory.user_id);
-    
-  },
-    methods: {
-      addHistory() {
-        this.educationalHistory.push({
-          start_date: '',
-          end_date: '',
-          institution: '',
-          subjects: '',
-          degree: ''
+      
         });
       },
       submit() {
-        axios.post(`${base_url}/save-edubackground`, this.educationalHistory).then((response)=>{
+        axios.post(`${base_url}/save-edubackground`, {edubackground:this.edubackground, user_id:this.user_id }).then((response)=>{
                         console.log(response);               
                         if(response.data.status==='success'){
-                          localStorage.setItem('apikey',response.data.apikey);
+                          console.log(response);  
+                          this.$router.push('/employhis');
                         }
                         }).catch((error)=>{
                console.log(error)
             swal('Sorry,You can not register');
           });
         },
-
-        GoBack() {
-
-            this.$router.push('/formData')
-        }
-        // Logic to submit the form data
       }
     }
   
