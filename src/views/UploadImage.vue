@@ -177,7 +177,7 @@ export default{
    width: 82%;
     height: 80%; 
     background-color: black;
-    z-index:2;
+    z-index:1;
   }
 
   .formbold-file-input label {
