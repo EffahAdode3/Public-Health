@@ -1,7 +1,7 @@
 <template>
     <body>
     <form @submit.prevent="submit">
-      <h2>Form Validation</h2>
+      <h2>Biodata information</h2>
       <div class="form-group gender">
         <label for="gender">Program Applied For</label>
         <select id="program" v-model="formData.prog_applied">
