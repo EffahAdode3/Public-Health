@@ -162,10 +162,9 @@ export default {
       }).then((response)=>{
         console.log('Response:', response);
       if(response.data.status === 'success'){
-        localStorage.setItem('apikey', response.data.apikey);
-        // swal('Biodata Saved Successfully')
-        console.log("Succefully");
         this.$router.push('/edu');
+        localStorage.setItem('apikey', response.data.apikey);
+        
       }
         }).catch((err)=>{
             swal('Oops','No Internet Connection detected','error');
