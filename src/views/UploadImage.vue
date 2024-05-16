@@ -174,10 +174,10 @@ export default{
   .formbold-file-input input {
     opacity: 0; 
      position: absolute;
-   width: 32%;
-    height: 27%; 
-    /* background-color: black; */
-    z-index:1;
+   width: 82%;
+    height: 80%; 
+    background-color: black;
+    z-index:2;
   }
 
   .formbold-file-input label {
