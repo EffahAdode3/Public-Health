@@ -151,7 +151,7 @@ export default {
         dob:this.formData.dob,
         placeofbirth:this.formData.placeofbirth,
         address:this.formData.address,
-        phone:this.formData.phone,
+        // phone:this.formData.phone,
         email:this.formData.email,
         prevacademic:this.formData.prevacademic,
         isemployed:this.formData.isemployed,
