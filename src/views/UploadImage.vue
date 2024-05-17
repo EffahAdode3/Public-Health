@@ -1,13 +1,10 @@
 <template>
     <div class="formbold-main-wrapper">
-
   <div class="formbold-form-wrapper">
- 
       <div class="mb-6 pt-4">
         <label class="formbold-form-label formbold-form-label-2">
           Upload Files
         </label>
-
         <div class="formbold-mb-5 formbold-file-input">
           <input type="file" name="file" id="file" multiple @change="handleFileUpload"  />
           <label>
@@ -19,30 +16,24 @@
           </label>
         </div>
 
-      </div>
-
-    
-    
+      </div> 
     <br>
     <br>
     <br>
     <br>
     <br>
     <div>
-        <button class="formbold-btn w-full" @click="uploadFile">Submit</button>
+        <button class="formbold-btn w-full" @click="uploadFile">Next</button>
       </div>
   <br>
-
-                <div v-for="(preview, index) in imagePreviews" :key="index">
+  <div v-for="(preview, index) in imagePreviews" :key="index">
                   <iframe :src="preview" class="w-full" style="height: 500px;"></iframe>
                 </div>
-              </div>           
+              </div> 
+                          
 </div>
 <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="GoBack">Go Back</button>
-
-
 </template>
-
 <script>
 import axios from 'axios';
 import { base_url } from '@/constant';
@@ -60,7 +51,6 @@ export default{
       this.selectedFiles.push(...newFiles);
       this.imagePreviews.push(...newFiles.map(file => URL.createObjectURL(file)));
       },
-
       uploadFile() {     
           const formData = new FormData();
           this.selectedFiles.forEach(file => formData.append("file", file));
@@ -68,20 +58,17 @@ export default{
           .then((response)=>{
             console.log(response)
          if(response.data.status==='success'){
-            
+            this.$router.push('/preview')
             swal('File Uploaded Correct');
          }else{
             swal('File was not able to File')
          }
-     
           })         
         .catch ((error) =>{
             console.log(error)
-           swal('Sorry, Unable to upload File');
-      
+           swal('Sorry, Unable to upload File');   
         })
       },
-
       GoBack(){
         this.$router.push('/employhis')
     }

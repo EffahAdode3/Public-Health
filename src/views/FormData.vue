@@ -2,6 +2,9 @@
     <body>
     <form @submit.prevent="submit">
       <h2>Biodata information</h2>
+      <button type="button" class="btn btn-danger" @click.prevent="logout">Logout</button>
+      <br>
+      <br>
       <div class="form-group gender">
         <label for="gender">Program Applied For</label>
         <select id="program" v-model="formData.prog_applied">
@@ -90,7 +93,7 @@
       <div class="form-group submit-btn">
         <input type="submit" value="Next">
       </div>
-      <button type="button" class="btn btn-danger" @click.prevent="logout">Logout</button>
+      
     </form>
   </body> 
 </template>
@@ -102,8 +105,6 @@ import swal from 'sweetalert';
 export default {
   data() {
     return {
-
-      // getDataForm:[],
         user_id:'',
         user:[],
         titles: [],
@@ -116,7 +117,7 @@ export default {
             dob:'',
             placeofbirth:'',
             address:'',
-            phone:[],
+            phone:'',
             email:'',  
             prevacademic:'' ,
             isemployed:'',
@@ -135,8 +136,6 @@ export default {
     this.fetchTitles();
     this.getFormData() 
   },
- 
-
 
   methods:{
     submit(){
@@ -192,11 +191,12 @@ axios.post(`${base_url}/get-biodata`, {user_id: this.user_id}).then((response) =
               //  this.formData.othernames = response.data.biodata.othernames
               //  this.formData.title = response.data.biodata.title
               //  this.formData.gender = response.data.biodata.gender
-           let biodataForm = response.data.biodata;
-           for( const property in biodataForm){
-            this.formData[property] = biodataForm[property];
-           }
-           console.log(biodataForm);
+          //  let biodataForm = response.data.biodata;
+          //  for( const property in biodataForm){
+          //   this.formData[property] = biodataForm[property];
+          //  }
+          this.formData = response.data.biodata
+          //  console.log(biodataForm);
           console.log(response.data);       
         })  .catch(error => {
           console.error('Error fetching titles:', error);

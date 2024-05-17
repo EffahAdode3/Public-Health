@@ -1,7 +1,11 @@
 <template>
     <body>
      <form>
+      
        <h2>Employment History</h2>
+       <button type="button" class="btn btn-danger"   @click.prevent="logout">Logout</button>
+       <br>
+       <br>
        <h5>Begin with most recent employment, and include all current jobs</h5>
        <br>
        <div v-for="(entry, index) in emphistory" :key="index">
@@ -30,11 +34,15 @@
            <input type="text" v-model="entry.country">
          </div>
          <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="GoBack">Go Back</button>
+      
          <button class="btn btn-danger" @click.prevent="deleteHistory(index)">Delete</button>
+         <br>
+         <br>
+         <!-- <br> -->
        </div>
        <br>
-       <button type="button" class="btn btn-danger" style="position: absolute;left: 40%;"  @click.prevent="logout">Logout</button>
-       <button class="btn btn-primary"   @click.prevent="addEmployement">Add</button>
+       <!-- <br> -->
+       <button class="btn btn-primary"   @click.prevent="addEmployement">Add</button>    
        <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next</button>
      </form>
     
@@ -105,12 +113,13 @@ saveToLocalStorage() {
        getFormData() {
 
 axios.post(`${base_url}/get-emphistory`, {user_id: this.user_id}).then((response) => {
-
-           let employdataForm = response.data.emphistory;
-           for( const property in employdataForm){
-            this.emphistory[property] = employdataForm[property];
-           }
-           console.log(employdataForm);
+  
+           this.emphistory = response.data.emphistory
+          //  let employdataForm = response.data.emphistory;
+          //  for( const property in employdataForm){
+          //   this.emphistory[property] = employdataForm[property];
+          //  }
+          //  console.log(employdataForm);
           console.log(response.data);       
         })  .catch(error => {
           console.error('Error fetching titles:', error);

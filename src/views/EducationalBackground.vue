@@ -2,8 +2,12 @@
      <body>
       <form>
         <h2>Educational Background</h2>
+        <button type="button" class="btn btn-danger"  @click.prevent="logout">Logout</button>
+        <br>
+        <br>
         <div v-for="(entry, index) in edubackground" :key="index">
-       <h3>Educational Background</h3>
+       
+          <h3>Educational Background {{ index + 1 }}</h3>
           <div class="form-group date">
             <label>Date start</label>
             <input type="date" v-model="entry.start_date">
@@ -28,7 +32,7 @@
           <button class="btn btn-danger" @click.prevent="deleteHistory(index)">Delete</button>
         </div>
         <br>
-        <button type="button" class="btn btn-danger" style="position: absolute;left: 40%;"  @click.prevent="logout">Logout</button>
+
         <button class="btn btn-primary" @click.prevent="addHistory">Add</button>
         <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next</button>
       </form>
@@ -41,6 +45,7 @@
   export default {
     data() {
       return {    
+        
         user_id:'',
         user:[],
         edubackground: JSON.parse(localStorage.getItem('edubackground')) || [{
@@ -48,9 +53,9 @@
           end_date: '',
           institution: '',
           subjects: '',
-          degree: '',     
-        }]
-        
+          degree: '',   
+            
+        }]     
       };
     },
     mounted() {
@@ -59,7 +64,6 @@
     console.log(this.user);
     console.log(this.user_id);
     this. getFormData()
-    
   },
     methods: {
       addHistory() {
@@ -71,22 +75,19 @@
           degree: '',
       
         });
-        this.saveToLocalStorage();
       },
       
-      deleteHistory(index) {
+  deleteHistory(index) {
   this.edubackground.splice(index, 1);
-  // this.saveToLocalStorage();
+  localStorage.removeItem('edubackground', index);
+
 },
-
-saveToLocalStorage() {
-      localStorage.setItem('edubackground', JSON.stringify(this.edubackground));
-    },
-
       submit() {
+        console.log(this.edubackground);
         axios.post(`${base_url}/save-edubackground`, {edubackground:this.edubackground, user_id:this.user_id }).then((response)=>{
                         console.log(response);               
                         if(response.data.status==='success'){
+                          // localStorage.setItem('edubackground', JSON.stringify(this.edubackground));
                           console.log(response);  
                           this.$router.push('/employhis');
                         }
@@ -100,11 +101,11 @@ saveToLocalStorage() {
 
 axios.post(`${base_url}/get-edubackground`, {user_id: this.user_id}).then((response) => {
 
-           let edudataForm = response.data.eduhistory;
-           for( const property in edudataForm){
-            this.edubackground[property] = edudataForm[property];
-           }
-           console.log(edudataForm);
+           this.edubackground = response.data.eduhistory;
+          //  for( const property in edudataForm){
+          //   this.edubackground[property] = edudataForm[property];
+          //  }
+           
           console.log(response.data);       
         })  .catch(error => {
           console.error('Error fetching titles:', error);
@@ -119,8 +120,17 @@ axios.post(`${base_url}/get-edubackground`, {user_id: this.user_id}).then((respo
       // window.location.href="/";
       this.$router.push('/');
     }
-      }
-    }
+      },
+
+    //   watch: {
+    // edubackground: {
+    //   handler() {
+    //     this.saveToLocalStorage();
+    //   },
+    //   deep: false
+    // }
+    // }
+  }
   
   </script>
 
