@@ -6,18 +6,18 @@
       <br>
       <br>
       <div class="form-group gender">
-        <label for="gender">Program Applied For</label>
-        <select id="program" v-model="formData.prog_applied">
-          <option value="" selected disabled>Select Program Applied For</option>
-          <option value="Male">MPH</option>
-          <option value="Female">PHD</option>      
+        <label >Program Applied For</label>
+        <select  v-model="formData.prog_applied">
+          <option selected disabled>Select Program Applied For</option>
+          <option value="MPH">MPH</option>
+          <option value="PHD">PHD</option>      
         </select>
       </div>
       <div class="form-group fullname">
       <label for="title">Title</label>
-      <select id="title" v-model="formData.title">
+      <select  v-model="formData.title">
         <option value="" selected disabled>Select a Title</option>
-        <option v-for="titlename in titles" :key="titlename.id" :value="titlename.id">{{ titlename.title }}</option>
+        <option v-for="titlename in titles" :key="titlename.id">{{ titlename.title }}</option>
       </select>
     </div>
       <div class="form-group fullname">
@@ -107,7 +107,7 @@ export default {
     return {
         user_id:'',
         user:[],
-        titles: [],
+        titles: '',
         formData:{
             prog_applied:'',
             title:'',
@@ -176,7 +176,10 @@ export default {
       axios.get(`${base_url}/title`)
         .then(response => {
           this.titles = response.data.title;
+          console.log(response.data)
+          console.log(this.titles);
         })
+   
         .catch(error => {
           console.error('Error fetching titles:', error);
         });

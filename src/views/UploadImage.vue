@@ -56,7 +56,7 @@ export default{
           this.selectedFiles.forEach(file => formData.append("file", file));
          axios.post(`${base_url}/uploadfile`,  formData, )
           .then((response)=>{
-            console.log(response)
+            console.log(response.data)
          if(response.data.status==='success'){
             this.$router.push('/preview')
             swal('File Uploaded Correct');

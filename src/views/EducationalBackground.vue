@@ -5,8 +5,7 @@
         <button type="button" class="btn btn-danger"  @click.prevent="logout">Logout</button>
         <br>
         <br>
-        <div v-for="(entry, index) in edubackground" :key="index">
-       
+        <div v-for="(entry, index) in edubackground" :key="index">      
           <h3>Educational Background {{ index + 1 }}</h3>
           <div class="form-group date">
             <label>Date start</label>
