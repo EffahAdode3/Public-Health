@@ -7,6 +7,7 @@ import employhis from '../views/EmploymentHistory.vue'
 import upload from '../views/UploadImage.vue'
 import preview from '@/views/Preview.vue'
 import component from '../components/VueWizard.vue'
+import Uploadfile from '../views/UploadFiles.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/upload',
       name: 'upload',
       component: upload
+    },
+    {
+      path: '/Uploadfile',
+      name: 'Uploadfile',
+      component: Uploadfile
     },
   ]
 })

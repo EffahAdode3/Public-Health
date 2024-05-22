@@ -3,13 +3,13 @@
   <div class="formbold-form-wrapper">
       <div class="mb-6 pt-4">
         <label class="formbold-form-label formbold-form-label-2">
-          Upload Files
+      Upload Your Profile Images
         </label>
         <div class="formbold-mb-5 formbold-file-input">
           <input type="file" name="file" id="file" multiple @change="handleFileUpload"  />
           <label>
             <div>
-              <span class="formbold-drop-file"> Drop files here </span>
+              <!-- <span class="formbold-drop-file"> Drop files here </span> -->
               <span class="formbold-or"> Or </span>
               <span class="formbold-browse"> Browse </span>
             </div>
@@ -82,9 +82,7 @@ export default{
     padding: 0;
     box-sizing: border-box;
   }
-  /* body {
-    font-family: "Inter", sans-serif;
-  } */
+ 
   .formbold-mb-5 {
     margin-bottom: 20px;
   }
