@@ -79,7 +79,7 @@
           .then((response) => {
             console.log(response.data);
             if (response.data.status === 'success') {
-              this.$router.push('/preview');
+              this.$router.push('/Uploadfile');
               swal('Files Uploaded Correctly');
             } else {
               swal('Files were not able to be uploaded');
