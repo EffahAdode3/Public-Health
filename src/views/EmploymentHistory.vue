@@ -1,9 +1,10 @@
 <template>
+    <div>
+      <VueWizard  startindex=2></VueWizard>
     <body>
-     <form>
-      
+     <form>       
        <h2>Employment History</h2>
-       <button type="button" class="btn btn-danger"   @click.prevent="logout">Logout</button>
+       <button type="button" class="btn btn-danger" @click.prevent="logout">Logout</button>
        <br>
        <br>
        <h5>Begin with most recent employment, and include all current jobs</h5>
@@ -44,17 +45,25 @@
        <!-- <br> -->
        <button class="btn btn-primary"   @click.prevent="addEmployement">Add</button>    
        <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next</button>
-     </form>
-    
+     </form>  
+ 
    </body>
+   </div>
 </template>
  <script>
  import axios from 'axios'
  import { base_url } from '@/constant';
  import swal from 'sweetalert';
+ import VueWizard from '../components/VueWizard.vue'
+
  export default {
+  components:{
+    VueWizard,
+    },
+
    data() {
      return {    
+      VueWizard,
         user_id:'',  
        user:[],
        emphistory: JSON.parse(localStorage.getItem('emphistory')) || [{
@@ -72,8 +81,7 @@
    this.user_id = this.user.id
    console.log(this.user);
    console.log(this.user_id);
-   this.getFormData()
-   
+   this.getFormData();
  },
    methods: {
     addEmployement() {
@@ -87,16 +95,13 @@
        });
           this.saveToLocalStorage();
      },
-
      deleteHistory(index) {
   this.emphistory.splice(index, 1);
   this.saveToLocalStorage();
 },
-
 saveToLocalStorage() {
       localStorage.setItem('emphistory', JSON.stringify(this.emphistory));
     },
-
      submit() {
        axios.post(`${base_url}/save-emphistory`,{emphistory: this.emphistory, user_id:this.user_id} ).then((response)=>{
                        console.log(response);               
@@ -109,17 +114,10 @@ saveToLocalStorage() {
            swal('Sorry,You can not register');
          });
        },
-
        getFormData() {
 
-axios.post(`${base_url}/get-emphistory`, {user_id: this.user_id}).then((response) => {
-  
+       axios.post(`${base_url}/get-emphistory`, {user_id: this.user_id}).then((response) => {
            this.emphistory = response.data.emphistory
-          //  let employdataForm = response.data.emphistory;
-          //  for( const property in employdataForm){
-          //   this.emphistory[property] = employdataForm[property];
-          //  }
-          //  console.log(employdataForm);
           console.log(response.data);       
         })  .catch(error => {
           console.error('Error fetching titles:', error);
@@ -133,14 +131,10 @@ axios.post(`${base_url}/get-emphistory`, {user_id: this.user_id}).then((response
       localStorage.clear();
       this.$router.push('/');
      }
-     },
-    
+     }, 
    }
- 
+
  </script>
-
-
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 * {
@@ -155,13 +149,15 @@ body {
  justify-content: center;
  padding: 0 10px;
  min-height: 100vh;
- background: #1BB295;
+ background-image: url('../assets/back.jpg');
+  background-position: center;
+  background-size: cover; 
+ /* background: #1BB295; */
 }
 
 .btn btn-secondary btn-lg{
    position: absolute;
    left: 54%;
-
 }
 form {
  padding: 25px;
@@ -187,7 +183,7 @@ form label {
 }
 form input,
 form select {
- height: 45px;
+ height: 30px;
  padding: 10px;
  width: 100%;
  font-size: 15px;

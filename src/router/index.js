@@ -6,6 +6,7 @@ import edu from '../views/EducationalBackground.vue'
 import employhis from '../views/EmploymentHistory.vue'
 import upload from '../views/UploadImage.vue'
 import preview from '@/views/Preview.vue'
+import component from '../components/VueWizard.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -13,6 +14,11 @@ const router = createRouter({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/component',
+      name: 'component',
+      component: component
     },
     {
       path: '/preview',

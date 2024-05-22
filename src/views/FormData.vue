@@ -1,110 +1,120 @@
+
 <template>
-    <body>
+  <div>
+    <VueWizard  startindex=0 @onchange="pickData"></VueWizard>
+  <body>
     <form @submit.prevent="submit">
-      <h2>Biodata information</h2>
       <button type="button" class="btn btn-danger" @click.prevent="logout">Logout</button>
-      <br>
-      <br>
-      <div class="form-group gender">
-        <label >Program Applied For</label>
-        <select  v-model="formData.prog_applied">
-          <option selected disabled>Select Program Applied For</option>
-          <option value="MPH">MPH</option>
-          <option value="PHD">PHD</option>      
-        </select>
+      <img src="../assets/UGlogo.jpeg" alt="" style="max-height:100px;display:block;margin:auto">   
+      <h2>Biodata information</h2>
+      <div class="form-grid">
+        <div class="form-group gender">
+          <label>Program Applied For</label>
+          <select v-model="formData.prog_applied">
+            <option selected disabled>Select Program Applied For</option>
+            <option value="MPH">MPH</option>
+            <option value="PHD">PHD</option>      
+          </select>
+        </div>
+        <div class="form-group fullname">
+          <label for="title">Title</label>
+          <select v-model="formData.title">
+            <option value="" selected disabled>Select a Title</option>
+            <option v-for="titlename in titles" :key="titlename.id">{{titlename.title}}</option>
+          </select>
+        </div>
+        <div class="form-group fullname">
+          <label for="surname">Surname</label> 
+          <input type="text" id="surname" placeholder="Enter your Surname" v-model="formData.surname">
+        </div>
+        <div class="form-group fullname">
+          <label for="Other Name">Other Name</label>
+          <input type="text" id="Other Name" placeholder="Enter your Other Name" v-model="formData.othernames">
+        </div>
+        <div class="form-group gender">
+          <label for="gender">Gender</label>
+          <select id="gender" v-model="formData.gender">
+            <option value="" selected disabled>Select your gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div class="form-group date">
+          <label for="date">Date Of Birth</label>
+          <input type="date" id="date" placeholder="Select Your Date Of Birth" v-model="formData.dob">
+        </div>
+        <div class="form-group fullname">
+          <label for="placeofBirth">Place of Birth</label>
+          <input type="text" id="placeofBirth" placeholder="Enter Your Place Of Birth" v-model="formData.placeofbirth">
+        </div>
+        <div class="form-group fullname">
+          <label for="postaddress">Postal Address</label>
+          <input type="text" id="postaladdress" placeholder="Enter Postal Address" v-model="formData.address">
+        </div>
+        <div class="form-group fullname">
+          <label for="telephonenNumber">Telephone Number</label>
+          <input type="text" id="telephonenNumber" placeholder="Enter Telephone Number" v-model="formData.phone">
+        </div>
+        <div class="form-group email">
+          <label for="email">Personal Email</label>
+          <input type="text" id="email" placeholder="Enter your Personal Email" v-model="formData.email">
+        </div>
+        <div class="form-group fullname">
+          <label for="previousacademic">Previous Academic Background</label>
+          <input type="text" id="previousacademic" placeholder="Enter Your Previous Academic Background" v-model="formData.prevacademic">
+        </div>
+        <div class="form-group gender">
+          <label for="currenEnployed">Are You Currently Employed</label>
+          <select id="currenEnployed" v-model="formData.isemployed">
+            <option value="" isemployed disabled></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <!-- <div class="form-grid"> -->
+        <div v-if="formData.isemployed === 'Yes'" class="form-grid">
+          <div class="form-group fullname">
+            <label for="position">Position/job title</label>
+            <input type="text" id="position" placeholder="Enter The Position/Job Title" v-model="formData.position">
+          </div>
+          <div class="form-group fullname">
+            <label for="institution">Name Of Institution</label>
+            <input type="text" id="institution" placeholder="Enter The Name OF the Institution" v-model="formData.employername">
+          </div>
+          <div class="form-group fullname">
+            <label for="postalAddress">Institutional Postal Address</label>
+            <input type="text" id="postalAddress" placeholder="Enter Institutional Postal Address" v-model="formData.employeraddress">
+          </div>
+          <div class="form-group email">
+            <label for="institutionEmail">Institution Email Address</label>
+            <input type="email" id="institutionEmail" placeholder="Enter Institutional Email" v-model="formData.employeremail">
+          </div>
+        </div>
+       
       </div>
-      <div class="form-group fullname">
-      <label for="title">Title</label>
-      <select  v-model="formData.title">
-        <option value="" selected disabled>Select a Title</option>
-        <option v-for="titlename in titles" :key="titlename.id">{{ titlename.title }}</option>
-      </select>
-    </div>
-      <div class="form-group fullname">
-        <label for="surname">Surname</label> 
-        <input type="text" id="surname" placeholder="Enter your Surname" v-model="formData.surname" >
-      </div>
-      <div class="form-group fullname">
-        <label for="Other Name ">Other Name</label>
-        <input type="text" id="Other Name" placeholder="Enter your Other Name" v-model="formData.othernames" >
-      </div>
-      <div class="form-group gender">
-        <label for="gender">Gender</label>
-        <select id="gender" v-model="formData.gender">
-          <option value="" selected disabled>Select your gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
 
-        </select>
-      </div>
-      <div class="form-group date">
-        <label for="date">Date Of Birth</label>
-        <input type="date" id="date" placeholder="Select Your Date Of Birth"  v-model="formData.dob">
-      </div>
-      <div class="form-group fullname">
-        <label for="placeofBirth">Place of Birth</label>
-        <input type="text" id="placeofBirth" placeholder="Enter Your Place Of Birth" v-model="formData.placeofbirth" >
-      </div>
-
-      <div class="form-group fullname">
-        <label for="postaddress">Postal Address</label>
-        <input type="text" id="postaladdress" placeholder="Enter Postal  Address" v-model="formData.address">
-      </div>
-      <div class="form-group fullname">
-        <label for="telephonenNumber">Telephone Number</label>
-        <input type="text" id="telephonenNumber" placeholder="Enter Telephone Number" v-model="formData.phone">
-      </div>
-      <div class="form-group email">
-        <label for="email">Personal Email</label>
-        <input type="text" id="email" placeholder="Enter your Personal Email" v-model="formData.email">
-      </div>
-      <div class="form-group fullname">
-        <label for="previousacademic">Previous Academic Background</label>
-        <input type="text" id="previousacademic" placeholder="Enter Your Previous Academic Backgroud" v-model="formData.prevacademic">
-      </div>
-      <div>
-    <div class="form-group gender">
-      <label for="currenEnployed">Are You Currently Employed</label>
-      <select id="currenEnployed" v-model="formData.isemployed">
-        <option value="" isemployed disabled></option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </div>
-    <div v-if="formData.isemployed === 'Yes'">
-      <div class="form-group fullname">
-        <label for="position">Position/job title</label>
-        <input type="text" id="position" placeholder="Enter The Position/Job Title" v-model="formData.position">
-      </div>
-      <div class="form-group fullname">
-        <label for="institution">Name Of Institution</label>
-        <input type="text" id="institution" placeholder="Enter The Name OF the Institution" v-model="formData.employername">
-      </div>
-      <div class="form-group fullname">
-        <label for="postalAddress">Institutional Postal Address</label>
-        <input type="text" id="postalAddress" placeholder="Enter Institutional Postal Address" v-model="formData.employeraddress">
-      </div>
-      <div class="form-group email">
-        <label for="institutionEmail">Institution Email Address</label>
-        <input type="email" id="institutionEmail" placeholder="Enter Institutional Email" v-model="formData.employeremail">
-      </div>
-    </div>
-  </div>
       <div class="form-group submit-btn">
         <input type="submit" value="Next">
       </div>
-      
     </form>
-  </body> 
+
+  </body>
+</div>
 </template>
 
 <script>
 import axios from 'axios';
 import {base_url} from '../constant'
 import swal from 'sweetalert';
+import VueWizard from '../components/VueWizard.vue'
+
 export default {
+  components:{
+    VueWizard,
+    },
   data() {
     return {
+      VueWizard,
         user_id:'',
         user:[],
         titles: '',
@@ -162,8 +172,7 @@ export default {
         console.log('Response:', response);
       if(response.data.status === 'success'){
         this.$router.push('/edu');
-        localStorage.setItem('apikey', response.data.apikey);
-        
+        localStorage.setItem('apikey', response.data.apikey);      
       }else{
         swal('Invalid input')
       }
@@ -171,6 +180,10 @@ export default {
             swal('Oops','No Internet Connection detected','error');
              console.log(err)
      });
+    },
+    pickData(p,n){
+     // console.log(e)
+       
     },
     fetchTitles() {
       axios.get(`${base_url}/title`)
@@ -185,21 +198,11 @@ export default {
         });
     },
 
-    // store date
+
     getFormData() {
-      // var user_id=12;
+  
 axios.post(`${base_url}/get-biodata`, {user_id: this.user_id}).then((response) => {
-          // if(response.data.status === 'success'){
-              //  this.formData.surname = response.data.biodata.surname
-              //  this.formData.othernames = response.data.biodata.othernames
-              //  this.formData.title = response.data.biodata.title
-              //  this.formData.gender = response.data.biodata.gender
-          //  let biodataForm = response.data.biodata;
-          //  for( const property in biodataForm){
-          //   this.formData[property] = biodataForm[property];
-          //  }
           this.formData = response.data.biodata
-          //  console.log(biodataForm);
           console.log(response.data);       
         })  .catch(error => {
           console.error('Error fetching titles:', error);
@@ -215,6 +218,7 @@ axios.post(`${base_url}/get-biodata`, {user_id: this.user_id}).then((response) =
 };
 </script>
 
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 * {
@@ -229,12 +233,14 @@ body {
   justify-content: center;
   padding: 0 10px;
   min-height: 100vh;
-  background: #1BB295;
+  background-image: url('../assets/back.jpg');
+  background-position: center;
+  background-size: cover; 
 }
 form {
   padding: 25px;
   background: #fff;
-  max-width: 500px;
+  max-width: 1000px;
   width: 100%;
   border-radius: 7px;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
@@ -244,8 +250,12 @@ form h2 {
   text-align: center;
   margin: 0px 0 30px;
 }
-form .form-group {
-  margin-bottom: 15px;
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.form-group {
   position: relative;
 }
 form label {

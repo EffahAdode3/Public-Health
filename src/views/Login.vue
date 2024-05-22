@@ -4,13 +4,12 @@
     <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;"> 
       <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
         <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-          <h1>LOGIN</h1>
-        </div>
-     
+        </div>   
         <div class="formbg-outer">
           <div class="formbg">
             <div class="formbg-inner padding-horizontal--48">
-              <span class="padding-bottom--15">Sign in to your account</span>
+              <img src="../assets/UGlogo.jpeg" alt="" style="max-height:100px;display:block;margin:auto">
+              <span class="padding-bottom--15" >Sign in to start your session</span>
               <form id="stripe-login" @submit.prevent="login" >
                 <div class="field padding-bottom--24">
                   <label for="email">Email</label>
@@ -19,9 +18,7 @@
                 <div class="field padding-bottom--24">
                   <div class="grid--50-50">
                     <label for="password">Password</label>
-                    <div class="reset-pass">
-                      <a href="#">Forgot your password?</a>
-                    </div>
+                 
                   </div>
                   <input type="password" name="password" v-model="formdata.password" required>
                 </div>
@@ -39,14 +36,12 @@
     </div>
   </div>
 </body>
-</template>
-
+</template> 
 <script>
   import axios from 'axios'
   import {base_url} from '../constant'
   import swal from 'sweetalert';
 export default{
-
   data(){
     return{
       formdata:{

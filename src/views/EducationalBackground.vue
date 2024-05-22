@@ -1,4 +1,6 @@
 <template>
+    <div>
+    <VueWizard  startindex=1></VueWizard>
      <body>
       <form>
         <h2>Educational Background</h2>
@@ -27,24 +29,29 @@
             <label>Degree completed</label>
             <input type="text" v-model="entry.degree">
           </div>
-          <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="GoBack">Go Back</button>
           <button class="btn btn-danger" @click.prevent="deleteHistory(index)">Delete</button>
         </div>
         <br>
-
+        <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 40%;"  @click.prevent="GoBack">Go Back</button>
         <button class="btn btn-primary" @click.prevent="addHistory">Add</button>
         <button type="button" class="btn btn-secondary btn-lg"  style="position: absolute;left: 58%;"  @click.prevent="submit">Next</button>
       </form>
+ 
     </body>
+    </div>
 </template>
   <script>
   import axios from 'axios'
   import { base_url } from '@/constant';
   import swal from 'sweetalert';
+  import VueWizard from '../components/VueWizard.vue'
   export default {
+    components:{
+    VueWizard,
+    },
     data() {
-      return {    
-        
+      return {   
+        VueWizard,       
         user_id:'',
         user:[],
         edubackground: JSON.parse(localStorage.getItem('edubackground')) || [{
@@ -86,7 +93,6 @@
         axios.post(`${base_url}/save-edubackground`, {edubackground:this.edubackground, user_id:this.user_id }).then((response)=>{
                         console.log(response);               
                         if(response.data.status==='success'){
-                          // localStorage.setItem('edubackground', JSON.stringify(this.edubackground));
                           console.log(response);  
                           this.$router.push('/employhis');
                         }
@@ -99,12 +105,7 @@
         getFormData() {
 
 axios.post(`${base_url}/get-edubackground`, {user_id: this.user_id}).then((response) => {
-
-           this.edubackground = response.data.eduhistory;
-          //  for( const property in edudataForm){
-          //   this.edubackground[property] = edudataForm[property];
-          //  }
-           
+           this.edubackground = response.data.eduhistory;      
           console.log(response.data);       
         })  .catch(error => {
           console.error('Error fetching titles:', error);
@@ -120,21 +121,9 @@ axios.post(`${base_url}/get-edubackground`, {user_id: this.user_id}).then((respo
       this.$router.push('/');
     }
       },
-
-    //   watch: {
-    // edubackground: {
-    //   handler() {
-    //     this.saveToLocalStorage();
-    //   },
-    //   deep: false
-    // }
-    // }
   }
-  
+
   </script>
-
-
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 * {
@@ -149,7 +138,10 @@ body {
   justify-content: center;
   padding: 0 10px;
   min-height: 100vh;
-  background: #1BB295;
+  background-image: url('../assets/back.jpg');
+  background-position: center;
+  background-size: cover; 
+  /* background: #1BB295; */
 }
 
 .btn btn-secondary btn-lg{

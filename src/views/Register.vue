@@ -1,7 +1,8 @@
 <template>
       <body>
     <form @submit.prevent="signup">
-      <h2>Account Registration</h2>
+      <!-- <h2>Account Registration</h2> -->
+      <img src="../assets/UGlogo.jpeg" alt="" style="max-height:100px;display:block;margin:auto">
       <div class="form-group fullname">
         <label for="fullname">Surname</label>
         <input type="text" id="surname" placeholder="Enter your Surname"  v-model="formdata.surname" required >
@@ -24,15 +25,14 @@
         <input  type="password" id="cfmpassword" placeholder="Enter your Retype-password" v-model="confirmPassword" required>
         <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
       </div>
-      <!-- <div class="form-group date">
-        <label for="date">Birth Date</label>
-        <input type="date" id="date" placeholder="Select your date">
-      </div> -->
-
       <div class="form-group submit-btn">
         <input type="submit" value="Submit"  >
       
       </div>
+      <div class="field">
+                    <span><a href="/">Already having accounts?  Click to Login</a></span>
+                </div>
+      
     </form>
   </body>
 </template>
@@ -42,8 +42,7 @@ import {base_url} from '../constant'
 import swal from 'sweetalert';
  export default{
      data(){
-        return{
-           
+        return{          
             formdata:{
             surname:'',
               othernames:'',
@@ -100,9 +99,13 @@ body {
   padding: 0 10px;
   min-height: 100vh;
   background-color: blue;
-
+  background-image: url('../assets/back.jpg');
+  background-size: cover; 
+  /* background-position: center; */
 }
-
+.field a {
+       text-decoration: none;
+}
 form {
   padding: 25px;
   background: #fff;
