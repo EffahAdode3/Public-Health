@@ -54,11 +54,12 @@
         for (let i = 0; i < files.length; i++) {
           if (files[i].type !== 'application/pdf') {
             alert('Please upload only PDF files.');
-            return;
+         return
           }
           // Check if the file already exists in the selectedFiles array
           if (!this.selectedFiles.some(file => file.name === files[i].name)) {
             this.selectedFiles.push(files[i]);
+            // return;
           }
         }
       },
@@ -160,14 +161,11 @@ button {
 button:hover {
   background-color: #ff3333;
 }
-
-/* Responsive design */
 @media (max-width: 600px) {
   li {
     flex-direction: column;
     align-items: flex-start;
   }
-
   button {
     margin-top: 5px;
   }

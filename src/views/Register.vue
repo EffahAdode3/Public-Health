@@ -98,7 +98,7 @@ body {
   justify-content: center;
   padding: 0 10px;
   min-height: 100vh;
-  background-color: blue;
+  /* background-color: blue; */
   background-image: url('../assets/back.jpg');
   background-size: cover; 
   /* background-position: center; */
